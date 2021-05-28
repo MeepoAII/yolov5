@@ -327,15 +327,15 @@ def train(hyp, opt, device, tb_writer=None):
                 pbar.set_description(s)
 
                 # Plot
-                if plots and ni < 3:
-                    f = save_dir / f'train_batch{ni}.jpg'  # filename
-                    Thread(target=plot_images, args=(imgs, targets, paths, f), daemon=True).start()
-                    if tb_writer:
-                        tb_writer.add_graph(torch.jit.trace(model, imgs, strict=False), [])  # add model graph
-                        # tb_writer.add_image(f, result, dataformats='HWC', global_step=epoch)
-                elif plots and ni == 10 and wandb_logger.wandb:
-                    wandb_logger.log({"Mosaics": [wandb_logger.wandb.Image(str(x), caption=x.name) for x in
-                                                  save_dir.glob('train*.jpg') if x.exists()]})
+                # if plots and ni < 3:
+                #     f = save_dir / f'train_batch{ni}.jpg'  # filename
+                #     Thread(target=plot_images, args=(imgs, targets, paths, f), daemon=True).start()
+                #     if tb_writer:
+                #         tb_writer.add_graph(torch.jit.trace(model, imgs, strict=False), [])  # add model graph
+                #         # tb_writer.add_image(f, result, dataformats='HWC', global_step=epoch)
+                # elif plots and ni == 10 and wandb_logger.wandb:
+                #     wandb_logger.log({"Mosaics": [wandb_logger.wandb.Image(str(x), caption=x.name) for x in
+                #                                   save_dir.glob('train*.jpg') if x.exists()]})
 
             # end batch ------------------------------------------------------------------------------------------------
         # end epoch ----------------------------------------------------------------------------------------------------
